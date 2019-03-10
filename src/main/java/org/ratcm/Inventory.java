@@ -149,7 +149,7 @@ public class Inventory {
     public int getSugar() {
         return sugar;
     }
-    
+
     /**
      * Sets the number of sugar units in the inventory
      * to the specified amount.
@@ -187,7 +187,7 @@ public class Inventory {
      * @param r
      * @return boolean
      */
-    protected boolean enoughIngredients(Recipe r) {
+    public boolean enoughIngredients(Recipe r) {
         boolean isEnough = true;
         if(Inventory.coffee < r.getAmtCoffee()) {
             isEnough = false;

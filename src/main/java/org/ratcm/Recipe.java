@@ -28,8 +28,9 @@ public class Recipe {
     public int getAmtChocolate() {
 		return amtChocolate;
 	}
+
     /**
-	 * @param amtChocolate   The amtChocolate to set.
+	 * @param chocolate   The amount of chocolate to set.
 	 */
     public void setAmtChocolate(String chocolate) throws RecipeException {
     	int amtChocolate = 0;
@@ -44,14 +45,16 @@ public class Recipe {
 			throw new RecipeException("Units of chocolate must be a positive integer");
 		}
 	}
+
     /**
 	 * @return   Returns the amtCoffee.
 	 */
     public int getAmtCoffee() {
 		return amtCoffee;
 	}
+
     /**
-	 * @param amtCoffee   The amtCoffee to set.
+	 * @param coffee   The amount of coffee to set.
 	 */
     public void setAmtCoffee(String coffee) throws RecipeException {
     	int amtCoffee = 0;
@@ -66,14 +69,16 @@ public class Recipe {
 			throw new RecipeException("Units of coffee must be a positive integer");
 		}
 	}
+
     /**
 	 * @return   Returns the amtMilk.
 	 */
     public int getAmtMilk() {
 		return amtMilk;
 	}
-    /**
-	 * @param amtMilk   The amtMilk to set.
+
+	/**
+	 * @param milk   The amount of milk to set.
 	 */
     public void setAmtMilk(String milk) throws RecipeException{
     	int amtMilk = 0;
@@ -88,14 +93,16 @@ public class Recipe {
 			throw new RecipeException("Units of milk must be a positive integer");
 		}
 	}
+
     /**
 	 * @return   Returns the amtSugar.
 	 */
     public int getAmtSugar() {
 		return amtSugar;
 	}
-    /**
-	 * @param amtSugar   The amtSugar to set.
+
+	/**
+	 * @param sugar   The amount of sugar to set.
 	 */
     public void setAmtSugar(String sugar) throws RecipeException {
     	int amtSugar = 0;
@@ -110,13 +117,15 @@ public class Recipe {
 			throw new RecipeException("Units of sugar must be a positive integer");
 		}
 	}
+
     /**
 	 * @return   Returns the name.
 	 */
     public String getName() {
 		return name;
 	}
-    /**
+
+	/**
 	 * @param name   The name to set.
 	 */
     public void setName(String name) {
@@ -124,12 +133,14 @@ public class Recipe {
     		this.name = name;
     	}
 	}
+
     /**
 	 * @return   Returns the price.
 	 */
     public int getPrice() {
 		return price;
 	}
+
     /**
 	 * @param price   The price to set.
 	 */

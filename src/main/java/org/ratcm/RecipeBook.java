@@ -3,9 +3,9 @@ package org.ratcm;
 public class RecipeBook {
 	
 	/** Array of recipes in coffee maker*/
-	private Recipe [] recipeArray;
+	private Recipe[] recipeArray;
 	/** Number of recipes in coffee maker */
-	private final int NUM_RECIPES = 4; 
+	private static final int NUM_RECIPES = 4;
 	
 	/**
 	 * Default constructor for a RecipeBook.
@@ -16,7 +16,6 @@ public class RecipeBook {
 	
 	/**
 	 * Returns the recipe array.
-	 * @param r
 	 * @return Recipe[]
 	 */
 	public Recipe[] getRecipes() {
