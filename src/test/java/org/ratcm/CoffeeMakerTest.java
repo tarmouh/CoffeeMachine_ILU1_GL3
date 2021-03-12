@@ -1,9 +1,11 @@
 package org.ratcm;
 
-import org.junit.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ratcm.exceptions.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CoffeeMakerTest {
 
@@ -13,7 +15,7 @@ public class CoffeeMakerTest {
 	private Recipe r3;
 	private Recipe r4;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		cm = new CoffeeMaker();
 		
@@ -55,9 +57,10 @@ public class CoffeeMakerTest {
 		
 	}
 
-	@Test(expected=InventoryException.class)
+	@Test
 	public void testAddInventory() throws InventoryException {
-		cm.addInventory("4", "-1", "asdf", "3");
+		assertThrows(InventoryException.class,
+				() -> { cm.addInventory("4", "-1", "asdf", "3"); });
 	}
 	
 	@Test
