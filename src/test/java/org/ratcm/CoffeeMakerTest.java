@@ -1,11 +1,12 @@
 package org.ratcm;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.ratcm.exceptions.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ratcm.exceptions.InventoryException;
 
 public class CoffeeMakerTest {
 
@@ -69,4 +70,29 @@ public class CoffeeMakerTest {
 		assertEquals(25, cm.makeCoffee(0, 75));
 	}
 	
+	@Test
+	public void testMakeCoffeeWithoutEnoughMoney() {
+		cm.addRecipe(r1);
+		final int moneyAmount = 25;
+		assertTrue(moneyAmount < cm.getRecipes()[0].getPrice());
+		assertEquals(moneyAmount, cm.makeCoffee(0, moneyAmount));
+	}
+	
+	@Test
+	public void testMakeMochaWithNoSufficientChocolate() {
+		cm.addRecipe(r2);
+		assertEquals(75, cm.makeCoffee(0, 75));
+		
+	}
+	
+	@Test
+	public void testMakingManyCoffeesEmptiesStock() {
+		cm.addRecipe(r1);
+		assertEquals(0,cm.makeCoffee(0, 50));
+		assertEquals(0,cm.makeCoffee(0, 50));
+		assertEquals(0,cm.makeCoffee(0, 50));
+		assertEquals(0,cm.makeCoffee(0, 50));
+		assertEquals(0,cm.makeCoffee(0, 50));
+		assertEquals(50,cm.makeCoffee(0, 50));
+	}
 }
