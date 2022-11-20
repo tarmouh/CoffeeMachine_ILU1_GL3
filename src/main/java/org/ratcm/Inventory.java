@@ -41,27 +41,7 @@ public class Inventory {
         
     }
     
-    /**
-     * Add the number of chocolate units in the inventory 
-     * to the current amount of chocolate units.
-     * @param chocolate
-     * @throws InventoryException
-     */
-    public void addChocolate(String chocolate) throws InventoryException {
-    	int amtChocolate = 0;
-    	try {
-    		amtChocolate = Integer.parseInt(chocolate);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of chocolate must be a positive integer");
-    	}
-		if (amtChocolate >= 0) {
-			Inventory.chocolate += amtChocolate;
-		} else {
-			throw new InventoryException("Units of chocolate must be a positive integer");
-		}
-    }
-    
-    /**
+     /**
      * Returns the current number of coffee units in
      * the inventory.
      * @return int
@@ -81,25 +61,6 @@ public class Inventory {
     	}
     }
     
-    /**
-     * Add the number of coffee units in the inventory 
-     * to the current amount of coffee units.
-     * @param coffee
-     * @throws InventoryException
-     */
-    public void addCoffee(String coffee) throws InventoryException {
-    	int amtCoffee = 0;
-    	try {
-    		amtCoffee = Integer.parseInt(coffee);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of coffee must be a positive integer");
-    	}
-		if (amtCoffee >= 0) {
-			Inventory.coffee += amtCoffee;
-		} else {
-			throw new InventoryException("Units of coffee must be a positive integer");
-		}
-    }
     
     /**
      * Returns the current number of milk units in
@@ -121,27 +82,7 @@ public class Inventory {
     	}
     }
     
-    /**
-     * Add the number of milk units in the inventory 
-     * to the current amount of milk units.
-     * @param milk
-     * @throws InventoryException
-     */
-    public void addMilk(String milk) throws InventoryException {
-    	int amtMilk = 0;
-    	try {
-    		amtMilk = Integer.parseInt(milk);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of milk must be a positive integer");
-    	}
-		if (amtMilk >= 0) {
-			Inventory.milk += amtMilk;
-		} else {
-			throw new InventoryException("Units of milk must be a positive integer");
-		}
-    }
-    
-    /**
+     /**
      * Returns the current number of sugar units in 
      * the inventory.
      * @return int
@@ -161,27 +102,7 @@ public class Inventory {
     	}
     }
     
-    /**
-     * Add the number of sugar units in the inventory 
-     * to the current amount of sugar units.
-     * @param sugar
-     * @throws InventoryException
-     */
-    public void addSugar(String sugar) throws InventoryException {
-    	int amtSugar = 0;
-    	try {
-    		amtSugar = Integer.parseInt(sugar);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of sugar must be a positive integer");
-    	}
-		if (amtSugar >= 0) {
-			Inventory.sugar += amtSugar;
-		} else {
-			throw new InventoryException("Units of sugar must be a positive integer");
-		}
-    }
-    
-    /**
+     /**
      * Returns true if there are enough ingredients to make
      * the beverage.
      * @param r
