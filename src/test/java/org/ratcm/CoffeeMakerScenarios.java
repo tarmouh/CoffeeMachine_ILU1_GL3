@@ -110,7 +110,7 @@ public class CoffeeMakerScenarios {
 		assertEquals(0, cm.makeCoffee(0, 50));
 		assertEquals(50, cm.makeCoffee(0, 50));
 		try {
-			cm.addInventory("15", "5", "5", null);
+			cm.addInventory("15", "5", "5", "0");
 		} catch (InventoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
