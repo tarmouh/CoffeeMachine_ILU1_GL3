@@ -27,26 +27,37 @@ public class Main {
 					"Please press the number that corresponds to what you would like the coffee maker to do."));
 
 			if (userInput >= 0 && userInput <= 6) {
-				if (userInput == 1)
-					addRecipe();
-				if (userInput == 2)
-					deleteRecipe();
-				if (userInput == 3)
-					editRecipe();
-				if (userInput == 4)
-					addInventory();
-				if (userInput == 5)
-					checkInventory();
-				if (userInput == 6)
-					makeCoffee();
-				if (userInput == 0)
+				switch (userInput) {
+				case 0:
 					System.exit(0);
+					break;
+				case 1:
+					addRecipe();
+					break;
+				case 2:
+					deleteRecipe();
+					break;
+				case 3:
+					editRecipe();
+					break;
+				case 4:
+					addInventory();
+					break;
+				case 5:
+					checkInventory();
+					break;
+				case 6:
+					makeCoffee();
+					break;
+				default:
+					break;
+				}
 			} else {
 				System.out.println("Please enter a number from 0 - 6");
-				mainMenu();
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("Please enter a number from 0 - 6");
+		} finally {
 			mainMenu();
 		}
 	}
@@ -55,46 +66,18 @@ public class Main {
 	 * The add recipe user interface that process user input.
 	 */
 	public static void addRecipe() {
+	    String name = inputOutput("\nPlease enter the recipe name: ");
+		Recipe r = createRecipeFromInput();
+		r.setName(name);
 
-		// Read in recipe name
-		String name = inputOutput("\nPlease enter the recipe name: ");
+		boolean recipeAdded = coffeeMaker.addRecipe(r);
 
-		// Read in recipe price
-		String priceString = inputOutput("\nPlease enter the recipe price: $");
-
-		// Read in amt coffee
-		String coffeeString = inputOutput("\nPlease enter the units of coffee in the recipe: ");
-
-		// Read in amt milk
-		String milkString = inputOutput("\nPlease enter the units of milk in the recipe: ");
-
-		// Read in amt sugar
-		String sugarString = inputOutput("\nPlease enter the units of sugar in the recipe: ");
-
-		// Read in amt chocolate
-		String chocolateString = inputOutput("\nPlease enter the units of chocolate in the recipe: ");
-
-		Recipe r = new Recipe();
-		try {
-			r.setName(name);
-			r.setPrice(priceString);
-			r.setAmtCoffee(coffeeString);
-			r.setAmtMilk(milkString);
-			r.setAmtSugar(sugarString);
-			r.setAmtChocolate(chocolateString);
-
-			boolean recipeAdded = coffeeMaker.addRecipe(r);
-
-			if (recipeAdded) {
-				System.out.println(name + " successfully added.\n");
-			} else {
-				System.out.println(name + " could not be added.\n");
-			}
-		} catch (RecipeException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			mainMenu();
+		if (recipeAdded) {
+			System.out.println(r.getName() + " successfully added.\n");
+		} else {
+			System.out.println(r.getName() + " could not be added.\n");
 		}
+		mainMenu();
 	}
 
 	/**
@@ -109,16 +92,14 @@ public class Main {
 		}
 		int recipeToDelete = recipeListSelection("Please select the number of the recipe to delete.");
 
-		if (recipeToDelete < 0) {
-			mainMenu();
-		}
+		if (recipeToDelete >= 0) {
+			String recipeDeleted = coffeeMaker.deleteRecipe(recipeToDelete);
 
-		String recipeDeleted = coffeeMaker.deleteRecipe(recipeToDelete);
-
-		if (recipeDeleted != null) {
-			System.out.println(recipeDeleted + " successfully deleted.\n");
-		} else {
-			System.out.println("Selected recipe doesn't exist and could not be deleted.\n");
+			if (recipeDeleted != null) {
+				System.out.println(recipeDeleted + " successfully deleted.\n");
+			} else {
+				System.out.println("Selected recipe doesn't exist and could not be deleted.\n");
+			}
 		}
 		mainMenu();
 	}
@@ -135,33 +116,8 @@ public class Main {
 		}
 		int recipeToEdit = recipeListSelection("Please select the number of the recipe to edit.");
 
-		if (recipeToEdit < 0) {
-			mainMenu();
-		}
-
-		// Read in recipe price
-		String priceString = inputOutput("\nPlease enter the recipe price: $");
-
-		// Read in amt coffee
-		String coffeeString = inputOutput("\nPlease enter the units of coffee in the recipe: ");
-
-		// Read in amt milk
-		String milkString = inputOutput("\nPlease enter the units of milk in the recipe: ");
-
-		// Read in amt sugar
-		String sugarString = inputOutput("\nPlease enter the units of sugar in the recipe: ");
-
-		// Read in amt chocolate
-		String chocolateString = inputOutput("\nPlease enter the units of chocolate in the recipe: ");
-
-		Recipe newRecipe = new Recipe();
-		try {
-			newRecipe.setPrice(priceString);
-			newRecipe.setAmtCoffee(coffeeString);
-			newRecipe.setAmtMilk(milkString);
-			newRecipe.setAmtSugar(sugarString);
-			newRecipe.setAmtChocolate(chocolateString);
-
+		if (recipeToEdit >= 0) {
+			Recipe newRecipe = createRecipeFromInput();
 			String recipeEdited = coffeeMaker.editRecipe(recipeToEdit, newRecipe);
 
 			if (recipeEdited != null) {
@@ -169,11 +125,38 @@ public class Main {
 			} else {
 				System.out.println(recipeEdited + "could not be edited.\n");
 			}
-		} catch (RecipeException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			mainMenu();
 		}
+		mainMenu();
+	}
+
+	private static Recipe createRecipeFromInput() {
+		// Read in recipe price
+		String priceString = inputOutput("\nPlease enter the recipe price: $");
+		int priceQty = parseQuantity(priceString);
+
+		// Read in amt coffee
+		String coffeeString = inputOutput("\nPlease enter the units of coffee in the recipe: ");
+		int coffeeQty = parseQuantity(coffeeString);
+
+		// Read in amt milk
+		String milkString = inputOutput("\nPlease enter the units of milk in the recipe: ");
+		int milkQty = parseQuantity(milkString);
+
+		// Read in amt sugar
+		String sugarString = inputOutput("\nPlease enter the units of sugar in the recipe: ");
+		int sugarQty = parseQuantity(sugarString);
+
+		// Read in amt chocolate
+		String chocolateString = inputOutput("\nPlease enter the units of chocolate in the recipe: ");
+		int chocolateQty = parseQuantity(chocolateString);
+
+		Recipe newRecipe = new Recipe();
+		newRecipe.setPrice(priceQty);
+		newRecipe.setAmtCoffee(coffeeQty);
+		newRecipe.setAmtMilk(milkQty);
+		newRecipe.setAmtSugar(sugarQty);
+		newRecipe.setAmtChocolate(chocolateQty);
+		return newRecipe;
 	}
 
 	/**
@@ -246,20 +229,20 @@ public class Main {
 		int amtPaid = 0;
 		try {
 			amtPaid = Integer.parseInt(amountPaid);
+
+			int change = coffeeMaker.makeCoffee(recipeToPurchase, amtPaid);
+
+			if (change == amtPaid) {
+				System.out.println("Insufficient funds to purchase.");
+			} else {
+				System.out.println("Thank you for purchasing " + coffeeMaker.getRecipes()[recipeToPurchase].getName());
+			}
+			System.out.println("Your change is: " + change + "\n");
 		} catch (NumberFormatException e) {
 			System.out.println("Please enter a positive integer");
+		} finally {
 			mainMenu();
 		}
-
-		int change = coffeeMaker.makeCoffee(recipeToPurchase, amtPaid);
-
-		if (change == amtPaid) {
-			System.out.println("Insufficient funds to purchase.");
-		} else {
-			System.out.println("Thank you for purchasing " + coffeeMaker.getRecipes()[recipeToPurchase].getName());
-		}
-		System.out.println("Your change is: " + change + "\n");
-		mainMenu();
 	}
 
 	/**

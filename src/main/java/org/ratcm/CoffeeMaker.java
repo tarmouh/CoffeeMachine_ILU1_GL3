@@ -62,10 +62,10 @@ public class CoffeeMaker {
 	 */
 	public void addInventory(int coffeeQty, int milkQty, int sugarQty, int chocolateQty)
 			throws InventoryException {
-		inventory.setCoffee(coffeeQty);
-		inventory.setMilk(milkQty);
-		inventory.setSugar(sugarQty);
-		inventory.setChocolate(chocolateQty);
+		inventory.setCoffee(inventory.getCoffee() + coffeeQty);
+		inventory.setMilk(inventory.getMilk() + milkQty);
+		inventory.setSugar(inventory.getSugar() + sugarQty);
+		inventory.setChocolate(inventory.getChocolate() + chocolateQty);
 	}
 
 	/**
