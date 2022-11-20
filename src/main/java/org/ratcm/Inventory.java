@@ -1,13 +1,11 @@
 package org.ratcm;
 
-import org.ratcm.exceptions.*;
-
 public class Inventory {
     
-    private static int coffee;
-    private static int milk;
-    private static int sugar;
-    private static int chocolate;
+    private int coffee;
+    private int milk;
+    private int sugar;
+    private int chocolate;
     
     /**
      * Creates a coffee maker inventory object and
@@ -36,7 +34,7 @@ public class Inventory {
      */
     public void setChocolate(int chocolate) {
     	if(chocolate >= 0) {
-    		Inventory.chocolate = chocolate;
+    		this.chocolate = chocolate;
     	}
         
     }
@@ -57,7 +55,7 @@ public class Inventory {
      */
     public void setCoffee(int coffee) {
     	if(coffee >= 0) {
-    		Inventory.coffee = coffee;
+    		this.coffee = coffee;
     	}
     }
     
@@ -78,7 +76,7 @@ public class Inventory {
      */
     public void setMilk(int milk) {
     	if(milk >= 0) {
-    		Inventory.milk = milk;
+    		this.milk = milk;
     	}
     }
     
@@ -98,7 +96,7 @@ public class Inventory {
      */
     public void setSugar(int sugar) {
     	if(sugar >= 0) {
-    		Inventory.sugar = sugar;
+    		this.sugar = sugar;
     	}
     }
     
@@ -110,16 +108,16 @@ public class Inventory {
      */
     public boolean enoughIngredients(Recipe r) {
         boolean isEnough = true;
-        if(Inventory.coffee < r.getAmtCoffee()) {
+        if(coffee < r.getAmtCoffee()) {
             isEnough = false;
         }
-        if(Inventory.milk < r.getAmtMilk()) {
+        if(milk < r.getAmtMilk()) {
             isEnough = false;
         }
-        if(Inventory.sugar < r.getAmtSugar()) {
+        if(sugar < r.getAmtSugar()) {
             isEnough = false;
         }
-        if(Inventory.chocolate < r.getAmtChocolate()) {
+        if(chocolate < r.getAmtChocolate()) {
             isEnough = false;
         }
         return isEnough;
@@ -133,10 +131,10 @@ public class Inventory {
      */
     public boolean useIngredients(Recipe r) {
     	if (enoughIngredients(r)) {
-	    	Inventory.coffee -= r.getAmtCoffee();
-	    	Inventory.milk -= r.getAmtMilk();
-	    	Inventory.sugar -= r.getAmtSugar();
-	    	Inventory.chocolate -= r.getAmtChocolate();
+	    	coffee -= r.getAmtCoffee();
+	    	milk -= r.getAmtMilk();
+	    	sugar -= r.getAmtSugar();
+	    	chocolate -= r.getAmtChocolate();
 	    	return true;
     	} else {
     		return false;
