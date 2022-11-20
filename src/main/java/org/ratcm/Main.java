@@ -57,8 +57,6 @@ public class Main {
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("Please enter a number from 0 - 6");
-		} finally {
-			mainMenu();
 		}
 	}
 
@@ -66,7 +64,7 @@ public class Main {
 	 * The add recipe user interface that process user input.
 	 */
 	public static void addRecipe() {
-	    String name = inputOutput("\nPlease enter the recipe name: ");
+		String name = inputOutput("\nPlease enter the recipe name: ");
 		Recipe r = createRecipeFromInput();
 		r.setName(name);
 
@@ -77,7 +75,6 @@ public class Main {
 		} else {
 			System.out.println(r.getName() + " could not be added.\n");
 		}
-		mainMenu();
 	}
 
 	/**
@@ -101,7 +98,6 @@ public class Main {
 				System.out.println("Selected recipe doesn't exist and could not be deleted.\n");
 			}
 		}
-		mainMenu();
 	}
 
 	/**
@@ -126,7 +122,6 @@ public class Main {
 				System.out.println(recipeEdited + "could not be edited.\n");
 			}
 		}
-		mainMenu();
 	}
 
 	private static Recipe createRecipeFromInput() {
@@ -184,8 +179,6 @@ public class Main {
 			System.out.println("Inventory successfully added");
 		} catch (InventoryException e) {
 			System.out.println("Inventory was not added");
-		} finally {
-			mainMenu();
 		}
 	}
 
@@ -209,7 +202,6 @@ public class Main {
 	 */
 	public static void checkInventory() {
 		System.out.println(coffeeMaker.checkInventory());
-		mainMenu();
 	}
 
 	/**
@@ -240,8 +232,6 @@ public class Main {
 			System.out.println("Your change is: " + change + "\n");
 		} catch (NumberFormatException e) {
 			System.out.println("Please enter a positive integer");
-		} finally {
-			mainMenu();
 		}
 	}
 
@@ -259,7 +249,6 @@ public class Main {
 			returnString = br.readLine();
 		} catch (IOException e) {
 			System.out.println("Error reading in value");
-			mainMenu();
 		}
 		return returnString;
 	}
@@ -296,6 +285,8 @@ public class Main {
 	public static void main(String[] args) {
 		coffeeMaker = new CoffeeMaker();
 		System.out.println("Welcome to the CoffeeMaker!\n");
-		mainMenu();
+		do {
+			mainMenu();
+		} while (true);
 	}
 }
