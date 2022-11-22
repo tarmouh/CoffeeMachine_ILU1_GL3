@@ -1,13 +1,11 @@
 package org.ratcm;
 
-import org.ratcm.exceptions.*;
-
 public class Inventory {
     
-    private static int coffee;
-    private static int milk;
-    private static int sugar;
-    private static int chocolate;
+    private int coffee;
+    private int milk;
+    private int sugar;
+    private int chocolate;
     
     /**
      * Creates a coffee maker inventory object and
@@ -36,32 +34,12 @@ public class Inventory {
      */
     public void setChocolate(int chocolate) {
     	if(chocolate >= 0) {
-    		Inventory.chocolate = chocolate;
+    		this.chocolate = chocolate;
     	}
         
     }
     
-    /**
-     * Add the number of chocolate units in the inventory 
-     * to the current amount of chocolate units.
-     * @param chocolate
-     * @throws InventoryException
-     */
-    public void addChocolate(String chocolate) throws InventoryException {
-    	int amtChocolate = 0;
-    	try {
-    		amtChocolate = Integer.parseInt(chocolate);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of chocolate must be a positive integer");
-    	}
-		if (amtChocolate >= 0) {
-			Inventory.chocolate += amtChocolate;
-		} else {
-			throw new InventoryException("Units of chocolate must be a positive integer");
-		}
-    }
-    
-    /**
+     /**
      * Returns the current number of coffee units in
      * the inventory.
      * @return int
@@ -77,29 +55,10 @@ public class Inventory {
      */
     public void setCoffee(int coffee) {
     	if(coffee >= 0) {
-    		Inventory.coffee = coffee;
+    		this.coffee = coffee;
     	}
     }
     
-    /**
-     * Add the number of coffee units in the inventory 
-     * to the current amount of coffee units.
-     * @param coffee
-     * @throws InventoryException
-     */
-    public void addCoffee(String coffee) throws InventoryException {
-    	int amtCoffee = 0;
-    	try {
-    		amtCoffee = Integer.parseInt(coffee);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of coffee must be a positive integer");
-    	}
-		if (amtCoffee >= 0) {
-			Inventory.coffee += amtCoffee;
-		} else {
-			throw new InventoryException("Units of coffee must be a positive integer");
-		}
-    }
     
     /**
      * Returns the current number of milk units in
@@ -117,31 +76,11 @@ public class Inventory {
      */
     public void setMilk(int milk) {
     	if(milk >= 0) {
-    		Inventory.milk = milk;
+    		this.milk = milk;
     	}
     }
     
-    /**
-     * Add the number of milk units in the inventory 
-     * to the current amount of milk units.
-     * @param milk
-     * @throws InventoryException
-     */
-    public void addMilk(String milk) throws InventoryException {
-    	int amtMilk = 0;
-    	try {
-    		amtMilk = Integer.parseInt(milk);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of milk must be a positive integer");
-    	}
-		if (amtMilk >= 0) {
-			Inventory.milk += amtMilk;
-		} else {
-			throw new InventoryException("Units of milk must be a positive integer");
-		}
-    }
-    
-    /**
+     /**
      * Returns the current number of sugar units in 
      * the inventory.
      * @return int
@@ -157,31 +96,11 @@ public class Inventory {
      */
     public void setSugar(int sugar) {
     	if(sugar >= 0) {
-    		Inventory.sugar = sugar;
+    		this.sugar = sugar;
     	}
     }
     
-    /**
-     * Add the number of sugar units in the inventory 
-     * to the current amount of sugar units.
-     * @param sugar
-     * @throws InventoryException
-     */
-    public void addSugar(String sugar) throws InventoryException {
-    	int amtSugar = 0;
-    	try {
-    		amtSugar = Integer.parseInt(sugar);
-    	} catch (NumberFormatException e) {
-    		throw new InventoryException("Units of sugar must be a positive integer");
-    	}
-		if (amtSugar <= 0) {
-			Inventory.sugar += amtSugar;
-		} else {
-			throw new InventoryException("Units of sugar must be a positive integer");
-		}
-    }
-    
-    /**
+     /**
      * Returns true if there are enough ingredients to make
      * the beverage.
      * @param r
@@ -189,16 +108,16 @@ public class Inventory {
      */
     public boolean enoughIngredients(Recipe r) {
         boolean isEnough = true;
-        if(Inventory.coffee < r.getAmtCoffee()) {
+        if(coffee < r.getAmtCoffee()) {
             isEnough = false;
         }
-        if(Inventory.milk < r.getAmtMilk()) {
+        if(milk < r.getAmtMilk()) {
             isEnough = false;
         }
-        if(Inventory.sugar < r.getAmtSugar()) {
+        if(sugar < r.getAmtSugar()) {
             isEnough = false;
         }
-        if(Inventory.chocolate < r.getAmtChocolate()) {
+        if(chocolate < r.getAmtChocolate()) {
             isEnough = false;
         }
         return isEnough;
@@ -212,10 +131,10 @@ public class Inventory {
      */
     public boolean useIngredients(Recipe r) {
     	if (enoughIngredients(r)) {
-	    	Inventory.coffee += r.getAmtCoffee();
-	    	Inventory.milk -= r.getAmtMilk();
-	    	Inventory.sugar -= r.getAmtSugar();
-	    	Inventory.chocolate -= r.getAmtChocolate();
+	    	coffee -= r.getAmtCoffee();
+	    	milk -= r.getAmtMilk();
+	    	sugar -= r.getAmtSugar();
+	    	chocolate -= r.getAmtChocolate();
 	    	return true;
     	} else {
     		return false;

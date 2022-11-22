@@ -1,5 +1,7 @@
 package org.ratcm;
 
+import org.ratcm.exceptions.InventoryException;
+
 public class CoffeeMakerScenarios {
 	private CoffeeMaker cm;
 	private Recipe r1;
@@ -16,44 +18,44 @@ public class CoffeeMakerScenarios {
 		}
 	}
 
-	private void setUp() throws Exception {
+	private void setUp() {
 		cm = new CoffeeMaker();
 
 		// Set up for r1
 		r1 = new Recipe();
 		r1.setName("Coffee");
-		r1.setAmtChocolate("0");
-		r1.setAmtCoffee("3");
-		r1.setAmtMilk("1");
-		r1.setAmtSugar("1");
-		r1.setPrice("50");
+		r1.setAmtChocolate(0);
+		r1.setAmtCoffee(3);
+		r1.setAmtMilk(1);
+		r1.setAmtSugar(1);
+		r1.setPrice(50);
 
 		// Set up for r2
 		r2 = new Recipe();
 		r2.setName("Mocha");
-		r2.setAmtChocolate("20");
-		r2.setAmtCoffee("3");
-		r2.setAmtMilk("1");
-		r2.setAmtSugar("1");
-		r2.setPrice("75");
+		r2.setAmtChocolate(20);
+		r2.setAmtCoffee(3);
+		r2.setAmtMilk(1);
+		r2.setAmtSugar(1);
+		r2.setPrice(75);
 
 		// Set up for r3
 		r3 = new Recipe();
 		r3.setName("Latte");
-		r3.setAmtChocolate("0");
-		r3.setAmtCoffee("3");
-		r3.setAmtMilk("3");
-		r3.setAmtSugar("1");
-		r3.setPrice("100");
+		r3.setAmtChocolate(0);
+		r3.setAmtCoffee(3);
+		r3.setAmtMilk(3);
+		r3.setAmtSugar(1);
+		r3.setPrice(100);
 
 		// Set up for r4
 		r4 = new Recipe();
 		r4.setName("Hot Chocolate");
-		r4.setAmtChocolate("4");
-		r4.setAmtCoffee("0");
-		r4.setAmtMilk("1");
-		r4.setAmtSugar("1");
-		r4.setPrice("65");
+		r4.setAmtChocolate(4);
+		r4.setAmtCoffee(0);
+		r4.setAmtMilk(1);
+		r4.setAmtSugar(1);
+		r4.setPrice(65);
 
 	}
 
@@ -88,18 +90,65 @@ public class CoffeeMakerScenarios {
 		System.out.println("testMakingManyCoffeesEmptiesStock passed with success");
 	}
 
+	private void testcheckInventoryBeforeUse() {
+		String inventoryStatus = cm.checkInventory();
+		assertInventory(inventoryStatus,15,15,15,15);
+		System.out.println("testcheckInventoryBeforeUse passed with success");
+	}
+
+	private void assertInventory(String inventoryStatus, int coffeeQty, int milkQty, int sugarQty, int chocQty) {
+		assert(inventoryStatus.equals("Coffee: "+coffeeQty+"\nMilk: "
+										+milkQty+"\nSugar: "+sugarQty+"\nChocolate: "+chocQty+"\n"));
+	}
+
+	private void testMakingManyCoffeesAfterRefillIsStillPossible() {
+		cm.addRecipe(r1);
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(50, cm.makeCoffee(0, 50));
+		try {
+			cm.addInventory(15, 5, 5, 0);
+		} catch (InventoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(50, cm.makeCoffee(0, 50));
+		System.out.println("testMakingManyCoffeesAfterRefillIsStillPossible passed with success");
+	}
+
+	private void testCheckInventoryAfterThreeCoffees() {
+		cm.addRecipe(r1);
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		assertEquals(0, cm.makeCoffee(0, 50));
+		String inventoryStatus = cm.checkInventory();
+		assertInventory(inventoryStatus,6,12,12,15);
+		System.out.println("testCheckInventoryAfterThreeCoffees passed with success");
+	}
+
 	private void assertEquals(int expectedValue, int testedValue) {
 		assert (expectedValue == testedValue);
 	}
 
 	public static void main(String[] args) {
 		CoffeeMakerScenarios testScenario = new CoffeeMakerScenarios();
-		
+
 		// Run once at a time (in order to isolate pb)
-		testScenario.testMakeCoffee();
+//		testScenario.testMakeCoffee();
 //		testScenario.testMakeCoffeeWithoutEnoughMoney();
 //		testScenario.testMakeMochaWithNoSufficientChocolate();
-//		testScenario.testMakingManyCoffeesEmptiesStock();
+		testScenario.testMakingManyCoffeesEmptiesStock();
+//		testScenario.testcheckInventoryBeforeUse();
+//		testScenario.testMakingManyCoffeesAfterRefillIsStillPossible();
+//		testScenario.testCheckInventoryAfterThreeCoffees();
 	}
 
 }
